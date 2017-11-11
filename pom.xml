@@ -44,6 +44,7 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
+		<!-- bitcoin tools -->
 		<dependency>
 			<groupId>org.bitcoinj</groupId>
 			<artifactId>bitcoinj-tools</artifactId>
@@ -57,15 +58,20 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- logging extensions-->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>4.11</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- unittest framework-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -83,6 +89,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

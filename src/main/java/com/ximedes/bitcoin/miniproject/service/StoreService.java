@@ -1,4 +1,4 @@
-package com.ximedes.bitcoin.miniproject;
+package com.ximedes.bitcoin.miniproject.service;
 
 import lombok.extern.log4j.Log4j;
 import org.bitcoinj.core.Address;
