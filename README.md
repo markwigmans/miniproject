@@ -26,12 +26,11 @@ The program should:
 ## Installation
 Perform the following steps:
 1. copy *bmp.jar* to a target directory
-1. if standard configuration is not sufficient then create a file '*application.properties*' in the target directory and change the file accordingly.
+1. if the standard configuration is not sufficient then create a file '*application.properties*' in the target directory and change the file accordingly.
 
 ## Configuration
 
 The following properties can be set as application configuration properties (file *application.properties*). 
-The notation in the file is: <property>=<value'
 
 Property | Description | Default
 --- | --- | ---
@@ -41,7 +40,7 @@ fee.per.byte | Fee per byte in satoshis | 100
 ### First Run
 The first time the application creates a wallet which needs to be filled. So perform the following steps:
 
-1. Make sure that a local testnet node is running
+1. Make sure that a local testnet node is running;
 1. start the application:
 
 
@@ -60,13 +59,13 @@ The first time the application creates a wallet which needs to be filled. So per
 
 
     java -jar bmp.jar <value>
-    
+
 If there are no problems, the application stops normally and the *value* is added to the testnet blockchain.
 The logging of the application is sent to the file 'logs/bmp.log' if the flow of the application has to be followed.
 
 # Design
 Java is used as 'programming language of choice,' in combination with the industry standard framework *Spring Boot*
-and the standard bitcoin java library BitcoinJ. As build environment 'maven' is used (a Java industry standard as well).
+and the standard bitcoin java library *BitcoinJ*. As build tool '*maven*' is used (a Java industry standard as well).
 
 - java 8 (1.8.0_151 or higher)
 - Spring Boot (<http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-documentation>)
@@ -88,10 +87,10 @@ it to a file and the actual transaction handling (fee, creating  inputs and outp
 For storing of a given value on the chain, the following is done:
 
 - the Bitcoin operation *OP_RETURN* is used to store the given value;
-- As the room for OP_RETURN is limited, and the length of the <value> parameter is not known in advance, we need to handle the case where the <value> needs more room than is available.
+- As the room for OP_RETURN is limited, and the length of the *value* parameter is not known in advance, we need to handle the case where the *value* needs more room than is available.
 
-To guarantee that the <value> always fits, an SHA-256 hash of the <value> is stored, so the size of the 'value to be stored' is fixed and independent
-of the <value>.  The code is prepared to store <value> directly into the blockchain (parameter 'hashed' in method StoreService.store()).
+To guarantee that the *value* always fits, an SHA-256 hash of the *value* is stored, so the size of the 'value to be stored' is fixed and independent
+of the *value*. The code is prepared to store *value* directly into the blockchain (parameter 'hashed' in method StoreService.store()).
 
 # Development
 ## Prerequisites
@@ -101,10 +100,10 @@ of the <value>.  The code is prepared to store <value> directly into the blockch
 
 
     git clone https://github.com/markwigmans/miniproject.git
-    
+
 The software is tested with 'crypto.policy=unlimited' to support (unlimited strength JCE). See 
-<http://www.oracle.com/technetwork/java/javase/8all-relnotes-2226344.html#R180_151>    
-    
+<http://www.oracle.com/technetwork/java/javase/8all-relnotes-2226344.html#R180_151>
+
 ## Build en Run
 
 1. Checkout the project
