@@ -27,7 +27,6 @@ public class WalletService {
 
     private final NetworkParameters params;
     private final WalletAppKit bitcoin;
-    private final String walletFileName;
 
     /**
      * Constructor
@@ -40,7 +39,7 @@ public class WalletService {
         this.feeService = feeService;
 
         params = TestNet3Params.get();
-        walletFileName = AppName.replaceAll("[^a-zA-Z0-9.-]", "_") + "-" + params.getPaymentProtocolId();
+        final String walletFileName = AppName.replaceAll("[^a-zA-Z0-9.-]", "_") + "-" + params.getPaymentProtocolId();
         bitcoin = new WalletAppKit(params, new File("."), walletFileName) {
             @Override
             protected void onSetupCompleted() {
@@ -62,7 +61,7 @@ public class WalletService {
      * Send given transaction. Fee is added separately.
      *
      * @param tx transaction to be send
-     * @throws InsufficientMoneyException
+     * @throws InsufficientMoneyException if not enough money is available in the wallet.
      */
     public void send(final Transaction tx) throws InsufficientMoneyException {
         final SendRequest request = SendRequest.forTx(tx);

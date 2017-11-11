@@ -24,11 +24,11 @@ public class StoreService {
     }
 
     /**
+     * Store the given value on thr blockchain
      *
-     *
-     * @param value
-     * @param hashed
-     * @throws InsufficientMoneyException
+     * @param value  the value to be stored
+     * @param hashed hash the value before storing or not.
+     * @throws InsufficientMoneyException of not enough money is available in the wallet.
      */
     public void store(final String value, boolean hashed) throws InsufficientMoneyException {
         final byte[] bytes;

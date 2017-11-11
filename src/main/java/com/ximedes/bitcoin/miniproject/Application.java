@@ -18,6 +18,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     private StoreService storeService;
 
+    /**
+     * Start point of the application
+     */
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
         app.setBannerMode(Banner.Mode.OFF);
