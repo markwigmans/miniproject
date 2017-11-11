@@ -21,12 +21,16 @@ The program should:
 # Development
 
 ## Prerequisites
-1. Make sure you have Java 8 SDK installed.
+1. Make sure you have Java 8 SDK installed (version 1.8.0_151 or higher)
 1. Add the Lombok plugin to your ide
 1. Use IntelliJ to clone the code at: (replace ``{username}`` with your *username*)
 
 
     git clone https://github.com/markwigmans/miniproject.git
+
+
+The software is tested with 'crypto.policy=unlimited' to support (unlimited strength JCE). See 
+http://www.oracle.com/technetwork/java/javase/8all-relnotes-2226344.html#R180_151
 
 ## Build en Run
 
@@ -52,11 +56,10 @@ The following properties can be set as application configuration properties (fil
 
 Property | Description | Default
 --- | --- | ---
-fee.per.byte | Fee per byte in satoshis | 50
+fee.per.byte | Fee per byte in satoshis | 100
 
- 
   
 ## Design
 
-- java 8
+- java 8 (1.8.0_151 or higher)
 - Spring Boot (http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-documentation)

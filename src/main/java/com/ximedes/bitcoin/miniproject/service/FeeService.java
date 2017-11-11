@@ -1,12 +1,17 @@
 package com.ximedes.bitcoin.miniproject.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.core.Coin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 /**
- * Calculate the fee for a given message.
+ * Service to calculate the fee
  */
+@Slf4j
 @Component
 public class FeeService {
 
@@ -16,14 +21,23 @@ public class FeeService {
     private final int fee;
 
     @Autowired
-    public FeeService(@Value("${fee.per.byte:50") int fee) {
+    public FeeService(@Value("${fee.per.byte:100}") int fee) {
         this.fee = fee;
     }
 
-    public int calcFee(byte[] message) {
-        if (message != null) {
-            return message.length * fee;
+    @PostConstruct
+    void init() {
+        log.info("Fee per byte: {}", fee);
+    }
+
+    public Coin feePerKb() {
+        return Coin.valueOf(fee * 1000);
+    }
+
+    public Coin fee(int messageSize) {
+        if (messageSize > 0) {
+            return Coin.valueOf(fee * messageSize);
         }
-        return 0;
+        return Coin.valueOf(0);
     }
 }
