@@ -25,8 +25,8 @@ The program should:
 
 ## Installation
 Perform the following steps:
-1. copy *bmp.jar* to target directory
-1. if standard configuration is not sufficient then create a file '*application.properties*' in the target directory and change the 'application.properties' accordingly.
+1. copy *bmp.jar* to a target directory
+1. if standard configuration is not sufficient then create a file '*application.properties*' in the target directory and change the file accordingly.
 
 ## Configuration
 
@@ -42,7 +42,7 @@ fee.per.byte | Fee per byte in satoshis | 100
 The first time the application creates a wallet which needs to be filled. So perform the following steps:
 
 1. Make sure that a local testnet node is running
-1. start application:
+1. start the application:
 
 
     java -jar bmp.jar
@@ -56,24 +56,42 @@ The first time the application creates a wallet which needs to be filled. So per
 
 ### Next Runs
 1. Make sure that a local testnet node is running
-1. start application:
+1. start the application:
 
 
     java -jar bmp.jar <value>
     
-If the are no problems, the application stops normally and the *value* is added to the testnet blockchain.
-The logging of th application is send to the file 'logs/bmp.log' if the flow of the application has to be followed.
+If there are no problems, the application stops normally and the *value* is added to the testnet blockchain.
+The logging of the application is sent to the file 'logs/bmp.log' if the flow of the application has to be followed.
 
 # Design
-Java is used as 'programming language of choice', in combination with the industry standard framework *Spring Boot* and 
-the standard bitcoin java libary BitcoinJ.
+Java is used as 'programming language of choice,' in combination with the industry standard framework *Spring Boot*
+and the standard bitcoin java library BitcoinJ. As build environment 'maven' is used (a Java industry standard as well).
 
 - java 8 (1.8.0_151 or higher)
 - Spring Boot (<http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-documentation>)
 - BitcoinJ (<https://bitcoinj.github.io>)
+- Maven (<https://maven.apache.org>)
 
+The starting point is the class '*com.ximedes.bitcoin.miniproject.Application*' and the actual work is being done in the 3 service classes:
 
+Class | Description
+--- | ---
+FeeService | calculate the required fee for a given transaction
+StoreService | store a given value in the blockchain
+WalletService | handles the wallet (keys) and transaction management (creating, sending)
 
+Most of the actual Bitcoin 'heavy lifting' is done by BitcoinJ. So a BitcoinJ wallet is used, an SPV client, for wallet handling, persisting
+it to a file and the actual transaction handling (fee, creating  inputs and outputs, etc.)
+
+## StoreService
+For storing of a given value on the chain, the following is done:
+
+- the Bitcoin operation *OP_RETURN* is used to store the given value;
+- As the room for OP_RETURN is limited, and the length of the <value> parameter is not known in advance, we need to handle the case where the <value> needs more room than is available.
+
+To guarantee that the <value> always fits, an SHA-256 hash of the <value> is stored, so the size of the 'value to be stored' is fixed and independent
+of the <value>.  The code is prepared to store <value> directly into the blockchain (parameter 'hashed' in method StoreService.store()).
 
 # Development
 ## Prerequisites
@@ -97,8 +115,8 @@ The software is tested with 'crypto.policy=unlimited' to support (unlimited stre
         
     mvnw clean install
 
-1. Create a Springboot configuration and start your project main class *Application*
-1. If you want to use external files use properties add the following to your VM options (we follow the spring boot conventions)
+1. Create a Spring-boot configuration and start your project main class *Application*
+1. If you want to use external files for properties, add the following to your VM options (we follow the spring boot conventions)
 
 
     --spring.config.location=config/${user.name}/ --logging.config=config/${user.name}/logback-spring.xml
