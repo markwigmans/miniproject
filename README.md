@@ -25,6 +25,7 @@ The program should:
 
 ## Installation
 Perform the following steps:
+
 1. copy *bmp.jar* to a target directory
 1. if the standard configuration is not sufficient then create a file '*application.properties*' in the target directory and change the file accordingly.
 
@@ -46,6 +47,7 @@ The first time the application creates a wallet which needs to be filled. Perfor
 
 
     java -jar bmp.jar
+    
 1. Check the console where the wallet *address* is printed.
 
 1. Use the given *address* to send some BTC to it (for example via <https://testnet.manu.backend.hamburg/faucet>)
@@ -122,6 +124,7 @@ can be changed accordingly.
 
 # Development
 ## Prerequisites
+
 1. Make sure you have Java 8 SDK installed (version 1.8.0_151 or higher)
 1. Add the Lombok plugin to your IDE
 1. Use IntelliJ to clone the code at: (replace ``{username}`` with your *username*)
