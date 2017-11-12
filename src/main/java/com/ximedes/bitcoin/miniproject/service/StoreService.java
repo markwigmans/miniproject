@@ -34,7 +34,9 @@ public class StoreService {
         final byte[] bytes;
         if (hashed) {
             bytes = Sha256Hash.of(value.getBytes()).getBytes();
+            log.debug("store() : value is SHA-256 hashed");
         } else {
+            log.debug("store() : value is plain");
             bytes = value.getBytes();
         }
 
@@ -43,6 +45,8 @@ public class StoreService {
         // Create a tx with an OP_RETURN output
         Transaction tx = walletService.createTransaction();
         tx.addOutput(Coin.ZERO, ScriptBuilder.createOpReturnScript(bytes));
+
+        // BitcoinJ takes care about the fee and the the change is send back to the wallet.
         walletService.send(tx);
     }
 

@@ -32,8 +32,8 @@ public class WalletService {
      * Constructor
      */
     @Autowired
-    public WalletService(FeeService feeService) {
-        // Make log output concise.
+    public WalletService(final FeeService feeService) {
+        // Make BitcoinJ log output concise.
         BriefLogFormatter.init();
 
         this.feeService = feeService;
@@ -70,8 +70,8 @@ public class WalletService {
 
         // Send it to the Bitcoin network
         final Wallet.SendResult result = bitcoin.wallet().sendCoins(SendRequest.forTx(tx));
-        log.debug("send() : result; '{}", result.tx);
-        log.info("transaction ID: '{}'", result.tx.getHashAsString());
+        log.info("send() : result; '{}", result.tx);
+        System.out.println("Tx ID: " + result.tx.getHashAsString());
     }
 
     @PostConstruct
@@ -80,6 +80,7 @@ public class WalletService {
         bitcoin.awaitRunning();
         log.info("Wallet address is: '{}'", bitcoin.wallet().currentReceiveAddress());
         log.info("Wallet balance is: {} Satoshis (at least 1 confirmed)", bitcoin.wallet().getBalance());
+        System.out.println("Wallet address is: " + bitcoin.wallet().currentReceiveAddress());
     }
 
     @PreDestroy

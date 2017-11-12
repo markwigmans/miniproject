@@ -36,7 +36,9 @@
     <logger name="com.ximedes" level="debug"/>
 
     <root level="info">
+        <!--
         <appender-ref ref="AsyncConsole"/>
+        -->
         <appender-ref ref="AsyncFile"/>
     </root>
 </configuration>
