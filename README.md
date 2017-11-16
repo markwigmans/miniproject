@@ -35,7 +35,8 @@ The following properties can be set as application configuration properties (fil
 
 Property | Description | Default
 --- | --- | ---
-fee.per.byte | Fee per byte in satoshis | 100
+fee.timeout.ms | Timeout for dynamic fee discovery | 5000
+fee.per.byte | Fee per byte in satoshis (if dynamic server can't be reached) | 100
 value.hashed | Hash the input value with SHA-256 before adding to the blockchain | true
 
 ## Run Application
@@ -58,7 +59,7 @@ The first time the application creates a wallet which needs to be filled. Perfor
 1. start the application:
 
 
-    java -jar bmp.jar <value>
+    java -jar bmp.jar *value*
 
 If there are no problems, the application stops normally and the *value* is added to the testnet blockchain.
 The logging of the application is sent to the file 'logs/bmp.log' if the flow of the application has to be followed.
@@ -94,7 +95,8 @@ it to a file and the actual transaction handling (fee, creating  inputs and outp
 
 ## Fee Service
 This service calculates the fee needed for a transaction. Within Bitcoin fee is calculated per byte, given to a miner. 
-Within BitcoinJ the fee can also given per Kb to make it easier. The *FeeService* class can handle both. 
+Within BitcoinJ the fee can also given per Kb to make it easier. Fee is calculated via dynamic fee discovery (<http://api.blockcypher.com/v1/btc/main>)
+If this server can't be reached in the given anount of time (property *fee.timeout.ms*) then a static FeeService is being use.
 The fee is configured as application parameter to prevent it from being a hard-coded value.
 
 ## Store Service
