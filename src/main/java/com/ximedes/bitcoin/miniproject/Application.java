@@ -4,7 +4,6 @@ import com.ximedes.bitcoin.miniproject.service.StoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,9 +28,7 @@ public class Application implements CommandLineRunner {
      * Start point of the application
      */
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(Application.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
+        SpringApplication.run(Application.class, args);
     }
 
     /**
